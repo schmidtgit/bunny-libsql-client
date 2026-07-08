@@ -79,4 +79,34 @@ public class TableSyncronizerTests
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void GenerateNoKeyTable()
+    {
+        var expected = new[]
+        {
+            "CREATE TABLE IF NOT EXISTS NoKey (description TEXT);"
+        };
+
+        var tableMemberType = typeof(NoKey);
+        var actual = TableSynchronizer.GenerateSqlCommands(tableMemberType, [], []);
+
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void GenerateStringKeyTable()
+    {
+        var expected = new[]
+        {
+            "CREATE TABLE IF NOT EXISTS StringKey (id TEXT PRIMARY KEY, description TEXT);"
+        };
+
+        var tableMemberType = typeof(StringKey);
+        var actual = TableSynchronizer.GenerateSqlCommands(tableMemberType, [], []);
+
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
